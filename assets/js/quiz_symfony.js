@@ -371,12 +371,11 @@ function checkResponses() {
         answersDiv.forEach((answerBlock) => {
             const value = answerBlock.querySelector("input").value;
             const isCorrectAnswer = expectedAnswers.includes(value);
+            answerBlock.classList.remove("text-green-600");
+            answerBlock.classList.remove("text-red-600");
             if (document.getElementById("show-answer").checked) {
                 answerBlock.classList.toggle("text-green-600", isCorrectAnswer);
                 answerBlock.classList.toggle("text-red-600", !isCorrectAnswer);
-            }else{
-                answerBlock.classList.remove("text-green-600");
-                answerBlock.classList.remove("text-red-600");
             }
         });
     });
