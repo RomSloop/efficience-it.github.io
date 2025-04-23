@@ -27,12 +27,18 @@
     <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-M5HHV7GC"
             height="0" width="0" style="display:none;visibility:hidden"></iframe>
 </noscript>
-<div class="max-w-xl sm:max-w-6xl mx-auto bg-white px-3 sm:px-6 py-6 rounded-lg shadow-lg">
+<div class="max-w-xl sm:max-w-6xl mx-auto bg-white px-3 sm:px-6 py-6 pb-16 rounded-lg shadow-lg">
     <h1 id="quiz-title" class="text-2xl font-bold mb-4 text-center"></h1>
     <div id="score" class="text-xl text-center m-4"></div>
     <form id="quiz-form">
         <div id="questions-container"></div>
-        <div class="fixed bottom-0 left-0 w-full bg-white shadow-lg p-2 flex justify-center space-x-2">
+        <div class="fixed bottom-12 left-0 w-full bg-white px-2 pt-2 flex justify-center space-x-2">
+            <label for="show-answer">
+                <span class="label">Show correct answers after validation</span>
+                <input type="checkbox" id="show-answer" name="show-answer">
+            </label>
+        </div>
+        <div class="fixed bottom-0 left-0 w-full bg-white shadow-lg px-2 pb-2 pt-1 flex justify-center space-x-2">
             <button type="button" id="restart-quiz"
                     class="px-4 py-2 bg-blue-600 text-white font-medium rounded-md shadow hover:bg-blue-700 transition duration-300 text-sm">
                 🔄 Restart

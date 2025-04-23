@@ -309,16 +309,16 @@ function generateQuestionHTML(question, index) {
     const inputType = answers.filter(a => a.correct).length > 1 ? "checkbox" : "radio";
 
     const optionsHTML = answers.map((answer, i) => `
-                <div class="answer-item flex items-center space-x-2">
+                <div class="answer-item flex items-baseline sm:items-center space-x-2 mb-1">
                     <input class="form-${inputType}" type="${inputType}" name="${questionId}" id="q${index}-option${i}" value="${escapeHTML(answer.value)}">
-                    <label for="q${index}-option${i}" class="answer-label">${escapeHTML(answer.value)}</label>
+                    <label for="q${index}-option${i}" class="answer-label break-all sm:break-normal">${escapeHTML(answer.value)}</label>
                 </div>`).join("");
 
     return `
                 <div class="mb-4 p-4 border rounded-lg bg-gray-50">
                     <h5 class="question-header flex justify-between items-center font-semibold text-gray-700" 
                         data-answers='${escapeHTML(JSON.stringify(answers.filter(a => a.correct).map(a => a.value)))}'>
-                        <span class="question-header-title">${escapeHTML(question.question)}</span>
+                        <span class="question-header-title hyphens-manual break-all sm:break-normal">${escapeHTML(question.question)}</span>
                         <span class="self-end text-sm text-gray-500 cursor-default" title="uuid: ${question.uuid}">ℹ️</span>
                     </h5>
                     <div class="question-body mt-2">
@@ -338,7 +338,7 @@ function escapeHTML(text) {
         .replace(/>/g, "&gt;")
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
-    
+
     escaped = escaped.replace(/`([^`]+)`/g, "<code class='bg-gray-100 text-red-600 font-mono px-1 rounded'>$1</code>");
 
     return escaped;
@@ -365,6 +365,20 @@ function checkResponses() {
         resultInfo.innerHTML = isCorrect ? "✅ Correct answer(s). " : "❌ Wrong answer(s). ";
 
         if (isCorrect) counter++;
+
+        // show answer ?
+        const answersDiv = questionBlock.querySelectorAll(".answer-item");
+        answersDiv.forEach((answerBlock) => {
+            const value = answerBlock.querySelector("input").value;
+            const isCorrectAnswer = expectedAnswers.includes(value);
+            if (document.getElementById("show-answer").checked) {
+                answerBlock.classList.toggle("text-green-600", isCorrectAnswer);
+                answerBlock.classList.toggle("text-red-600", !isCorrectAnswer);
+            }else{
+                answerBlock.classList.remove("text-green-600");
+                answerBlock.classList.remove("text-red-600");
+            }
+        });
     });
     document.getElementById('score').textContent = `${counter}/20`;
 }
